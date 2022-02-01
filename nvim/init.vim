@@ -4,8 +4,6 @@
 
 call plug#begin('~/.nvim/plugged')
 
-" file browser
-Plug 'mcchrish/nnn.vim'
 " managing bracktes of all sort
 Plug 'jiangmiao/auto-pairs'
 " status bar
@@ -110,22 +108,6 @@ set number relativenumber
 " subtle mark for lines over 80 characters
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%101v', 100)
-
-
-" ##############################################################################
-" SETTINGS FOR NNNPICKER
-" ##############################################################################
-
-" toggle file browser
-nnoremap <silent> <leader>n :NnnPicker<CR>
-
-" Floating window (neovim latest and vim with patch 8.2.191)
-let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
-
-let g:nnn#action = {
-      \ '<c-t>': 'tab split',
-      \ '<c-x>': 'split',
-      \ '<c-v>': 'vsplit' }
 
 " ##############################################################################
 " SEARCH SETTINGS
