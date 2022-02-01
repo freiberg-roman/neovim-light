@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# ### REQUIREMENTS ###
+#
+# font: IBM Plex Mono
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # link alacritty config
