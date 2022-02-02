@@ -2,25 +2,28 @@
 " PLUGING
 " ##############################################################################
 
-call plug#begin('~/.nvim/plugged')
+lua <<EOF
+return require('packer').startup(function()
 
-" managing bracktes of all sort
-Plug 'jiangmiao/auto-pairs'
-" status bar
-Plug 'vim-airline/vim-airline'
-" status bar themes
-Plug 'vim-airline/vim-airline-themes'
-" colortheme
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'ayu-theme/ayu-vim'
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
+  -- managing bracktes of all sort
+  use 'jiangmiao/auto-pairs'
+  -- status bar
+  use 'vim-airline/vim-airline'
+  -- status bar themes
+  use 'vim-airline/vim-airline-themes'
+  -- colortheme
+  use 'kristijanhusak/vim-hybrid-material'
+  use 'ayu-theme/ayu-vim'
 
-" Telescope search
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+  -- Telescope search
+  use 'nvim-lua/popup.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'nvim-telescope/telescope.nvim'
 
-call plug#end()
-
+end)
+EOF
 
 " ##############################################################################
 " EDITOR BASICS
