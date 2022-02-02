@@ -1,9 +1,7 @@
-" ##############################################################################
-" PLUGING
-" ##############################################################################
-
 lua <<EOF
 return require('packer').startup(function()
+
+-- ### PLUGINS ###
 
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
