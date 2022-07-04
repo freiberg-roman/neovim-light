@@ -6,3 +6,8 @@ font:
   bold:
     family: IBM Plex Mono
     style: Regular
+
+window:
+   dimensions:
+     columns: 133
+     lines: 40
