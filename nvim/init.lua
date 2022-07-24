@@ -67,6 +67,10 @@ map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
 map('n', '<leader>t', ':terminal<CR>i')
 map('t', '<Esc>', '<C-\\><C-n>')
 
+-- Copilot settings
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
 
 -- CONFIG: LSP and CMP
 -- Mappings.
