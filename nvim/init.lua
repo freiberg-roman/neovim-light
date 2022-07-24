@@ -20,9 +20,15 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
   use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
+  use 'mfussenegger/nvim-dap' -- Debugger plugin
 
   use 'github/copilot.vim'  -- GitHub Copilot
 end)
+
+-- HELPER FUNCTIONS
+function map(mode, shortcut, command)
+  vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
+end
 
 -- THEME AND TASK BAR
 vim.cmd[[colorscheme tokyonight]]
@@ -31,6 +37,36 @@ require('lualine').setup {
     theme = 'tokyonight'
   }
 }
+
+-- GENERAL CONFIGURATION
+vim.g.mapleader = ','
+map('n', 'k', 'gk')
+map('n', 'j', 'gj')
+-- ignore upper and lowercase in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
+-- Set the behavior of tab
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
+-- Number lines
+vim.wo.relativenumber = true
+vim.wo.number = true
+vim.o.signcolumn = 'yes'
+
+-- TELESCOPE SETTINGS
+map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
+map('n', '<leader>ff',
+"<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>", default_opts)
+map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
+map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
+map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
+
+-- Terminal
+map('n', '<leader>t', ':terminal<CR>i')
+map('t', '<Esc>', '<C-\\><C-n>')
+
 
 -- CONFIG: LSP and CMP
 -- Mappings.
