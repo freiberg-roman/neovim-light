@@ -13,6 +13,9 @@ require('packer').startup(function()
     'nvim-lualine/lualine.nvim', -- task bar
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
+  use {"akinsho/toggleterm.nvim", tag = 'v2.*', config = function()
+    require("toggleterm").setup()
+  end}
 
   -- LSP and autocomplete stuff
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
@@ -64,8 +67,10 @@ map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
 
 -- Terminal
-map('n', '<leader>t', ':terminal<CR>i')
+require("toggleterm").setup{}
+map('n', '<leader>t', ':ToggleTerm size=120 direction=vertical<CR>')
 map('t', '<Esc>', '<C-\\><C-n>')
+
 
 -- Copilot settings
 vim.g.copilot_no_tab_map = true
