@@ -29,11 +29,11 @@ colors:
 
 font:
   normal:
-    family: IBM Plex Mono
+    family: Blex Mono Nerd Font
     style: Bold
 
   bold:
-    family: IBM Plex Mono
+    family: Blex Mono Nerd Font
     style: Regular
 
 window:
