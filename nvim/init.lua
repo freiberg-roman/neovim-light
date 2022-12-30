@@ -24,8 +24,6 @@ require('packer').startup(function()
   use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use 'mfussenegger/nvim-dap' -- Debugger plugin
-
-  use 'github/copilot.vim'  -- GitHub Copilot
 end)
 
 -- HELPER FUNCTIONS
@@ -70,12 +68,6 @@ map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
 require("toggleterm").setup{}
 map('n', '<leader>t', ':ToggleTerm size=120 direction=vertical<CR>')
 map('t', '<Esc>', '<C-\\><C-n>')
-
-
--- Copilot settings
-vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-
 
 -- CONFIG: LSP and CMP
 -- Mappings.
@@ -135,7 +127,7 @@ require('lspconfig')['rust_analyzer'].setup{
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local lspconfig = require('lspconfig')
 
