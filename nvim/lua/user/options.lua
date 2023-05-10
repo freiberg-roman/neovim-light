@@ -29,3 +29,20 @@ vim.opt.formatoptions:remove({ "c", "r", "o" }) -- This is a sequence of letters
 vim.opt.linebreak = true
 vim.wo.relativenumber = true
 vim.wo.number = true
+vim.opt.termguicolors = true
+
+-- colorscheme
+--
+require("catppuccin").setup({
+    flavour = "latte", -- latte, frappe, macchiato, mocha
+    background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+    },
+})
+vim.cmd "colorscheme catppuccin-latte"
+
+
+-- toggleterm
+vim.keymap.set("n", "<space>t", ":ToggleTerm<CR>")
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
