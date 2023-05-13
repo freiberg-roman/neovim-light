@@ -1,10 +1,10 @@
-require("user.options")
-require("user.plugin")
-require("user.neoscroll")
-require("user.config.lsp")
-require("user.config.nvim-cmp")
-require("user.bufferline")
-require("user.treesitter")
-require("user.mason")
-require("user.tree")
-require("user.terminal")
+require("light.bootstrap"):init()
+require("light.config"):load()
+
+local plugins = require "light.plugins"
+require("light.plugin-loader").load { plugins, light.plugins }
+require("light.core.theme").setup()
+
+local Log = require "light.core.log"
+local commands = require "light.core.commands"
+commands.load(commands.defaults)

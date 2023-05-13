@@ -1,14 +1,13 @@
 local M = {}
-local Log = require "user.log"
-require("toggleterm").setup{}
+local Log = require "light.core.log"
 
 M.config = function()
-  lvim.builtin["terminal"] = {
+  light.builtin["terminal"] = {
     active = true,
     on_config_done = nil,
     -- size can be a number or function which is passed the current terminal
     size = 20,
-    open_mapping = [[<c-,>]],
+    open_mapping = [[<c-\>]],
     hide_numbers = true, -- hide the number column in toggleterm buffers
     shade_filetypes = {},
     shade_terminals = true,
@@ -38,8 +37,8 @@ M.config = function()
     },
     -- Add executables on the config.lua
     -- { cmd, keymap, description, direction, size }
-    -- lvim.builtin.terminal.execs = {...} to overwrite
-    -- lvim.builtin.terminal.execs[#lvim.builtin.terminal.execs+1] = {"gdb", "tg", "GNU Debugger"}
+    -- light.builtin.terminal.execs = {...} to overwrite
+    -- light.builtin.terminal.execs[#light.builtin.terminal.execs+1] = {"gdb", "tg", "GNU Debugger"}
     -- TODO: pls add mappings in which key and refactor this
     execs = {
       { nil, "<M-1>", "Horizontal Terminal", "horizontal", 0.3 },
@@ -67,7 +66,7 @@ end
 ---@param size number
 ---@return integer
 local function get_dynamic_terminal_size(direction, size)
-  size = size or lvim.builtin.terminal.size
+  size = size or light.builtin.terminal.size
   if direction ~= "float" and tostring(size):find(".", 1, true) then
     size = math.min(size, 1.0)
     local buf_sizes = get_buf_size()
@@ -79,11 +78,11 @@ local function get_dynamic_terminal_size(direction, size)
 end
 
 M.init = function()
-  for i, exec in pairs(lvim.builtin.terminal.execs) do
-    local direction = exec[4] or lvim.builtin.terminal.direction
+  for i, exec in pairs(light.builtin.terminal.execs) do
+    local direction = exec[4] or light.builtin.terminal.direction
 
     local opts = {
-      cmd = exec[1] or lvim.builtin.terminal.shell or vim.o.shell,
+      cmd = exec[1] or light.builtin.terminal.shell or vim.o.shell,
       keymap = exec[2],
       label = exec[3],
       -- NOTE: unable to consistently bind id/count <= 9, see #2146
@@ -100,9 +99,9 @@ end
 
 M.setup = function()
   local terminal = require "toggleterm"
-  terminal.setup(lvim.builtin.terminal)
-  if lvim.builtin.terminal.on_config_done then
-    lvim.builtin.terminal.on_config_done(terminal)
+  terminal.setup(light.builtin.terminal)
+  if light.builtin.terminal.on_config_done then
+    light.builtin.terminal.on_config_done(terminal)
   end
 end
 
@@ -127,19 +126,19 @@ end
 ---Toggles a log viewer according to log.viewer.layout_config
 ---@param logfile string the fullpath to the logfile
 M.toggle_log_view = function(logfile)
-  local log_viewer = lvim.log.viewer.cmd
+  local log_viewer = light.log.viewer.cmd
   if vim.fn.executable(log_viewer) ~= 1 then
     log_viewer = "less +F"
   end
   Log:debug("attempting to open: " .. logfile)
   log_viewer = log_viewer .. " " .. logfile
-  local term_opts = vim.tbl_deep_extend("force", lvim.builtin.terminal, {
+  local term_opts = vim.tbl_deep_extend("force", light.builtin.terminal, {
     cmd = log_viewer,
-    open_mapping = lvim.log.viewer.layout_config.open_mapping,
-    direction = lvim.log.viewer.layout_config.direction,
+    open_mapping = light.log.viewer.layout_config.open_mapping,
+    direction = light.log.viewer.layout_config.direction,
     -- TODO: this might not be working as expected
-    size = lvim.log.viewer.layout_config.size,
-    float_opts = lvim.log.viewer.layout_config.float_opts,
+    size = light.log.viewer.layout_config.size,
+    float_opts = light.log.viewer.layout_config.float_opts,
   })
 
   local Terminal = require("toggleterm.terminal").Terminal
