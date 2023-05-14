@@ -11,25 +11,8 @@ _G.require_clean = require("light.utils.modules").require_clean
 _G.require_safe = require("light.utils.modules").require_safe
 _G.reload = require("light.utils.modules").reload
 
----Get the full path to `$LUNARVIM_RUNTIME_DIR`
----@return string|nil
 function _G.get_runtime_dir()
-  local light_runtime_dir = os.getenv "LUNARVIM_RUNTIME_DIR"
-  if not light_runtime_dir then
-    -- when nvim is used directly
-    return vim.call("stdpath", "data")
-  end
-  return light_runtime_dir
-end
-
----Get the full path to `$LUNARVIM_CONFIG_DIR`
----@return string|nil
-function _G.get_config_dir()
-  local light_config_dir = os.getenv "LUNARVIM_CONFIG_DIR"
-  if not light_config_dir then
-    return vim.call("stdpath", "config")
-  end
-  return light_config_dir
+  return vim.call("stdpath", "data")
 end
 
 ---Get the full path to `$LUNARVIM_CACHE_DIR`
@@ -46,7 +29,6 @@ end
 ---@return table
 function M:init()
   self.runtime_dir = get_runtime_dir()
-  self.config_dir = get_config_dir()
   self.cache_dir = get_cache_dir()
   self.pack_dir = join_paths(self.runtime_dir, "site", "pack")
   self.lazy_install_dir = join_paths(self.pack_dir, "lazy", "opt", "lazy.nvim")
@@ -68,25 +50,8 @@ function M:init()
     return join_paths(self.home, ".config", "nvim")
   end
 
-  if os.getenv "LUNARVIM_RUNTIME_DIR" then
-    vim.opt.rtp:remove(join_paths(vim.call("stdpath", "data"), "site"))
-    vim.opt.rtp:remove(join_paths(vim.call("stdpath", "data"), "site", "after"))
-    -- vim.opt.rtp:prepend(join_paths(self.runtime_dir, "site"))
-    vim.opt.rtp:append(join_paths(self.runtime_dir, "light", "after"))
-    vim.opt.rtp:append(join_paths(self.runtime_dir, "site", "after"))
-
-    vim.opt.rtp:remove(vim.call("stdpath", "config"))
-    vim.opt.rtp:remove(join_paths(vim.call("stdpath", "config"), "after"))
-    vim.opt.rtp:prepend(self.config_dir)
-    vim.opt.rtp:append(join_paths(self.config_dir, "after"))
-
-    vim.opt.packpath = vim.opt.rtp:get()
-  end
-
   require("light.plugin-loader").init {}
-
   require("light.config"):init()
-
   require("light.core.mason").bootstrap()
 
   return self

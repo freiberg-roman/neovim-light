@@ -79,25 +79,11 @@ function plugin_loader.reload(spec)
 end
 
 function plugin_loader.load(configurations)
-  Log:debug "loading plugins configuration"
-  local lazy_available, lazy = pcall(require, "lazy")
-  if not lazy_available then
-    Log:warn "skipping loading plugins until lazy.nvim is installed"
-    return
-  end
+  local lazy_available, _ = pcall(require, "lazy")
+  print("Lazy loader available: " .. tostring(lazy_available))
 
   -- remove plugins from rtp before loading lazy, so that all plugins won't be loaded on startup
   vim.opt.runtimepath:remove(join_paths(plugins_dir, "*"))
-
-  local status_ok = xpcall(function()
-    table.insert(light.lazy.opts.install.colorscheme, 1, light.colorscheme)
-    lazy.setup(configurations, light.lazy.opts)
-  end, debug.traceback)
-
-  if not status_ok then
-    Log:warn "problems detected while loading plugins' configurations"
-    Log:trace(debug.traceback())
-  end
 end
 
 function plugin_loader.get_core_plugins()
@@ -114,12 +100,10 @@ end
 
 function plugin_loader.sync_core_plugins()
   local core_plugins = plugin_loader.get_core_plugins()
-  Log:trace(string.format("Syncing core plugins: [%q]", table.concat(core_plugins, ", ")))
   require("lazy").update { wait = true, plugins = core_plugins }
 end
 
 function plugin_loader.ensure_plugins()
-  Log:debug "calling lazy.install()"
   require("lazy").install { wait = true }
 end
 

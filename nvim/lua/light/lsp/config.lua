@@ -1,58 +1,7 @@
 local skipped_servers = {
-  "angularls",
-  "ansiblels",
-  "antlersls",
-  "azure_pipelines_ls",
-  "ccls",
-  "omnisharp",
-  "cssmodules_ls",
-  "denols",
-  "docker_compose_language_service",
-  "ember",
-  "emmet_ls",
-  "eslint",
-  "eslintls",
-  "glint",
-  "golangci_lint_ls",
-  "gradle_ls",
-  "graphql",
-  "java_language_server",
-  "jedi_language_server",
-  "ltex",
-  "neocmake",
-  "ocamlls",
-  "phpactor",
-  "psalm",
-  "pylsp",
-  "pylyzer",
-  "pyre",
-  "quick_lint_js",
-  "reason_ls",
-  "rnix",
-  "rome",
-  "ruby_ls",
-  "ruff_lsp",
-  "scry",
-  "solang",
-  "solc",
-  "solidity_ls",
-  "sorbet",
-  "sourcekit",
-  "sourcery",
-  "spectral",
-  "sqlls",
-  "sqls",
-  "standardrb",
-  "stylelint_lsp",
-  "svlangserver",
-  "tflint",
-  "unocss",
-  "verible",
-  "vtsls",
-  "vuels",
 }
 
-local skipped_filetypes = { "markdown", "rst", "plaintext", "toml", "proto" }
+local skipped_filetypes = {"rst", "plaintext", "toml", "proto" }
 
 local join_paths = require("light.utils").join_paths
 
@@ -112,7 +61,7 @@ return {
   },
   nlsp_settings = {
     setup = {
-      config_home = join_paths(get_config_dir(), "lsp-settings"),
+      config_home = join_paths(get_light_base_dir(), "lsp-settings"),
       -- set to false to overwrite schemastore.nvim
       append_default_schemas = true,
       ignored_servers = {},

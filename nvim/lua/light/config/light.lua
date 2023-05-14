@@ -1,8 +1,6 @@
 return {
   leader = "space",
-  reload_config_on_save = true,
   colorscheme = "lunar",
-  transparent_window = false,
   format_on_save = {
     ---@usage boolean: format on save (Default: false)
     enabled = false,
@@ -34,10 +32,6 @@ return {
         border = "rounded",
       },
       root = require("light.utils").join_paths(get_runtime_dir(), "site", "pack", "lazy", "opt"),
-      git = {
-        timeout = 120,
-      },
-      lockfile = require("light.utils").join_paths(get_config_dir(), "lazy-lock.json"),
       performance = {
         rtp = {
           reset = false,
