@@ -57,7 +57,7 @@ return {
       cmd = "lnav",
       layout_config = {
         ---@usage direction = 'vertical' | 'horizontal' | 'window' | 'float',
-        direction = "horizontal",
+        direction = "float",
         open_mapping = "",
         size = 40,
         float_opts = {},

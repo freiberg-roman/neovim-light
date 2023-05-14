@@ -79,11 +79,9 @@ function plugin_loader.reload(spec)
 end
 
 function plugin_loader.load(configurations)
-  local lazy_available, _ = pcall(require, "lazy")
-  print("Lazy loader available: " .. tostring(lazy_available))
-
-  -- remove plugins from rtp before loading lazy, so that all plugins won't be loaded on startup
+  local _, lazy = pcall(require, "lazy")
   vim.opt.runtimepath:remove(join_paths(plugins_dir, "*"))
+  lazy.setup(configurations)
 end
 
 function plugin_loader.get_core_plugins()

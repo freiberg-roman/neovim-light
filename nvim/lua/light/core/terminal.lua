@@ -1,52 +1,49 @@
 local M = {}
-local Log = require "light.core.log"
 
-M.config = function()
-  light.builtin["terminal"] = {
-    active = true,
-    on_config_done = nil,
-    -- size can be a number or function which is passed the current terminal
-    size = 20,
-    open_mapping = [[<c-\>]],
-    hide_numbers = true, -- hide the number column in toggleterm buffers
-    shade_filetypes = {},
-    shade_terminals = true,
-    shading_factor = 2, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-    start_in_insert = true,
-    insert_mappings = true, -- whether or not the open mapping applies in insert mode
-    persist_size = false,
-    -- direction = 'vertical' | 'horizontal' | 'window' | 'float',
-    direction = "float",
-    close_on_exit = true, -- close the terminal window when the process exits
-    shell = nil, -- change the default shell
-    -- This field is only relevant if direction is set to 'float'
-    float_opts = {
-      -- The border key is *almost* the same as 'nvim_win_open'
-      -- see :h nvim_win_open for details on borders however
-      -- the 'curved' border is a custom border type
-      -- not natively supported but implemented in this plugin.
-      -- border = 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
-      border = "curved",
-      -- width = <value>,
-      -- height = <value>,
-      winblend = 0,
-      highlights = {
-        border = "Normal",
-        background = "Normal",
-      },
+local terminal_settings = {
+  active = true,
+  on_config_done = nil,
+  -- size can be a number or function which is passed the current terminal
+  size = 20,
+  open_mapping = [[<space>t]],
+  hide_numbers = true, -- hide the number column in toggleterm buffers
+  shade_filetypes = {},
+  shade_terminals = true,
+  shading_factor = 2, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+  start_in_insert = true,
+  insert_mappings = true, -- whether or not the open mapping applies in insert mode
+  persist_size = false,
+  -- direction = 'vertical' | 'horizontal' | 'window' | 'float',
+  direction = "float",
+  close_on_exit = true, -- close the terminal window when the process exits
+  shell = nil, -- change the default shell
+  -- This field is only relevant if direction is set to 'float'
+  float_opts = {
+    -- The border key is *almost* the same as 'nvim_win_open'
+    -- see :h nvim_win_open for details on borders however
+    -- the 'curved' border is a custom border type
+    -- not natively supported but implemented in this plugin.
+    -- border = 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
+    border = "curved",
+    -- width = <value>,
+    -- height = <value>,
+    winblend = 0,
+    highlights = {
+      border = "Normal",
+      background = "Normal",
     },
-    -- Add executables on the config.lua
-    -- { cmd, keymap, description, direction, size }
-    -- light.builtin.terminal.execs = {...} to overwrite
-    -- light.builtin.terminal.execs[#light.builtin.terminal.execs+1] = {"gdb", "tg", "GNU Debugger"}
-    -- TODO: pls add mappings in which key and refactor this
-    execs = {
-      { nil, "<M-1>", "Horizontal Terminal", "horizontal", 0.3 },
-      { nil, "<M-2>", "Vertical Terminal", "vertical", 0.4 },
-      { nil, "<M-3>", "Float Terminal", "float", nil },
-    },
-  }
-end
+  },
+  -- Add executables on the config.lua
+  -- { cmd, keymap, description, direction, size }
+  -- light.builtin.terminal.execs = {...} to overwrite
+  -- light.builtin.terminal.execs[#light.builtin.terminal.execs+1] = {"gdb", "tg", "GNU Debugger"}
+  -- TODO: pls add mappings in which key and refactor this
+  execs = {
+    { nil, "<M-1>", "Horizontal Terminal", "horizontal", 0.3 },
+    { nil, "<M-2>", "Vertical Terminal", "vertical", 0.4 },
+    { nil, "<M-3>", "Float Terminal", "float", nil },
+  },
+}
 
 --- Get current buffer size
 ---@return {width: number, height: number}
@@ -78,14 +75,13 @@ local function get_dynamic_terminal_size(direction, size)
 end
 
 M.init = function()
-  for i, exec in pairs(light.builtin.terminal.execs) do
-    local direction = exec[4] or light.builtin.terminal.direction
+  for i, exec in pairs(terminal_settings.execs) do
+    local direction = exec[4] or terminal_settings.direction
 
     local opts = {
-      cmd = exec[1] or light.builtin.terminal.shell or vim.o.shell,
+      cmd = exec[1] or terminal_settings.shell or vim.o.shell,
       keymap = exec[2],
       label = exec[3],
-      -- NOTE: unable to consistently bind id/count <= 9, see #2146
       count = i + 100,
       direction = direction,
       size = function()
@@ -99,7 +95,7 @@ end
 
 M.setup = function()
   local terminal = require "toggleterm"
-  terminal.setup(light.builtin.terminal)
+  terminal.setup(terminal_settings)
   if light.builtin.terminal.on_config_done then
     light.builtin.terminal.on_config_done(terminal)
   end
@@ -107,11 +103,6 @@ end
 
 M.add_exec = function(opts)
   local binary = opts.cmd:match "(%S+)"
-  if vim.fn.executable(binary) ~= 1 then
-    Log:debug("Skipping configuring executable " .. binary .. ". Please make sure it is installed properly.")
-    return
-  end
-
   vim.keymap.set({ "n", "t" }, opts.keymap, function()
     M._exec_toggle { cmd = opts.cmd, count = opts.count, direction = opts.direction, size = opts.size() }
   end, { desc = opts.label, noremap = true, silent = true })
@@ -130,7 +121,6 @@ M.toggle_log_view = function(logfile)
   if vim.fn.executable(log_viewer) ~= 1 then
     log_viewer = "less +F"
   end
-  Log:debug("attempting to open: " .. logfile)
   log_viewer = log_viewer .. " " .. logfile
   local term_opts = vim.tbl_deep_extend("force", light.builtin.terminal, {
     cmd = log_viewer,
