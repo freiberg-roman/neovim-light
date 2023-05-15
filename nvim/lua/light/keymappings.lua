@@ -158,12 +158,6 @@ end
 -- Load the default keymappings
 function M.load_defaults()
   M.load(M.get_defaults())
-  light.keys = light.keys or {}
-  for idx, _ in pairs(defaults) do
-    if not light.keys[idx] then
-      light.keys[idx] = {}
-    end
-  end
 end
 
 -- Get the default keymappings

@@ -1,6 +1,5 @@
 local M = {}
 
-local Log = require "light.core.log"
 
 local null_ls = require "null-ls"
 local services = require "light.lsp.null-ls.services"
@@ -14,12 +13,6 @@ end
 function M.setup(actions_configs)
   if vim.tbl_isempty(actions_configs) then
     return
-  end
-
-  local registered = services.register_sources(actions_configs, method)
-
-  if #registered > 0 then
-    Log:debug("Registered the following action-handlers: " .. unpack(registered))
   end
 end
 

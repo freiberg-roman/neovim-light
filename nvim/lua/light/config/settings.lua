@@ -1,4 +1,5 @@
 local M = {}
+local light_icons = require "light.icons"
 
 M.load_default_options = function()
   local utils = require "light.utils"
@@ -79,10 +80,10 @@ M.load_default_options = function()
     signs = {
       active = true,
       values = {
-        { name = "DiagnosticSignError", text = light.icons.diagnostics.Error },
-        { name = "DiagnosticSignWarn", text = light.icons.diagnostics.Warning },
-        { name = "DiagnosticSignHint", text = light.icons.diagnostics.Hint },
-        { name = "DiagnosticSignInfo", text = light.icons.diagnostics.Information },
+        { name = "DiagnosticSignError", text = light_icons.diagnostics.Error },
+        { name = "DiagnosticSignWarn", text = light_icons.diagnostics.Warning },
+        { name = "DiagnosticSignHint", text = light_icons.diagnostics.Hint },
+        { name = "DiagnosticSignInfo", text = light_icons.diagnostics.Information },
       },
     },
     virtual_text = true,
@@ -102,19 +103,7 @@ M.load_default_options = function()
   vim.diagnostic.config(default_diagnostic_config)
 end
 
-M.load_headless_options = function()
-  vim.opt.shortmess = "" -- try to prevent echom from cutting messages off or prompting
-  vim.opt.more = false -- don't pause listing when screen is filled
-  vim.opt.cmdheight = 9999 -- helps avoiding |hit-enter| prompts.
-  vim.opt.columns = 9999 -- set the widest screen possible
-  vim.opt.swapfile = false -- don't use a swap file
-end
-
 M.load_defaults = function()
-  if #vim.api.nvim_list_uis() == 0 then
-    M.load_headless_options()
-    return
-  end
   M.load_default_options()
 end
 

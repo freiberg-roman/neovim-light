@@ -53,9 +53,7 @@ local core_plugins = {
   {
     "hrsh7th/nvim-cmp",
     config = function()
-      if light.builtin.cmp then
-        require("light.core.cmp").setup()
-      end
+      require("light.core.cmp").setup()
     end,
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
@@ -72,7 +70,7 @@ local core_plugins = {
   {
     "hrsh7th/cmp-cmdline",
     lazy = true,
-    enabled = light.builtin.cmp and light.builtin.cmp.cmdline.enable or false,
+    enabled = true,
   },
   {
     "folke/neodev.nvim",
@@ -131,7 +129,7 @@ local core_plugins = {
   -- Icons
   {
     "nvim-tree/nvim-web-devicons",
-    enabled = light.use_icons,
+    enabled = true,
     lazy = true,
   },
 

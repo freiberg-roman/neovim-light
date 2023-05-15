@@ -54,7 +54,6 @@ end
 function M.common_on_init(client, bufnr)
   if light.lsp.on_init_callback then
     light.lsp.on_init_callback(client, bufnr)
-    Log:debug "Called lsp.on_init_callback"
     return
   end
 end
@@ -62,7 +61,6 @@ end
 function M.common_on_attach(client, bufnr)
   if light.lsp.on_attach_callback then
     light.lsp.on_attach_callback(client, bufnr)
-    Log:debug "Called lsp.on_attach_callback"
   end
   local lu = require "light.lsp.utils"
   if light.lsp.document_highlight then
@@ -86,17 +84,13 @@ function M.get_common_opts()
 end
 
 function M.setup()
-  Log:debug "Setting up LSP support"
-
   local lsp_status_ok, _ = pcall(require, "lspconfig")
   if not lsp_status_ok then
     return
   end
 
-  if light.use_icons then
-    for _, sign in ipairs(vim.tbl_get(vim.diagnostic.config(), "signs", "values") or {}) do
-      vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
-    end
+  for _, sign in ipairs(vim.tbl_get(vim.diagnostic.config(), "signs", "values") or {}) do
+    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
   end
 
   if not utils.is_directory(light.lsp.templates_dir) then

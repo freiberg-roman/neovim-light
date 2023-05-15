@@ -1,6 +1,5 @@
 local M = {}
 
-local Log = require "light.core.log"
 local utils = require "light.utils"
 local light_lsp_utils = require "light.lsp.utils"
 
@@ -59,7 +58,6 @@ end
 function M.generate_templates(servers_names)
   servers_names = servers_names or light_lsp_utils.get_supported_servers()
 
-  Log:debug "Templates installation in progress"
 
   M.remove_template_files()
 
@@ -71,7 +69,6 @@ function M.generate_templates(servers_names)
   for _, server in ipairs(servers_names) do
     M.generate_ftplugin(server, ftplugin_dir)
   end
-  Log:debug "Templates installation is complete"
 end
 
 return M
