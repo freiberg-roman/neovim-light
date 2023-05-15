@@ -10,7 +10,8 @@ local core_plugins = {
     "williamboman/mason-lspconfig.nvim",
     cmd = { "LspInstall", "LspUninstall" },
     config = function()
-      require("mason-lspconfig").setup(light.lsp.installer.setup)
+      local lsp = require("light.lsp.config")
+      require("mason-lspconfig").setup(lsp.config.installer.setup)
 
       -- automatic_installation is handled by lsp-manager
       local settings = require "mason-lspconfig.settings"

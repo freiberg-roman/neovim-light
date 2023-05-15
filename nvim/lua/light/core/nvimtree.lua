@@ -1,5 +1,4 @@
 local M = {}
-local Log = require "light.core.log"
 
 function M.config()
   light.builtin.nvimtree = {
@@ -267,7 +266,6 @@ function M.setup()
   local status_ok, nvim_tree = pcall(require, "nvim-tree")
 
   if not status_ok then
-    Log:error "Failed to load nvim-tree"
     return
   end
 

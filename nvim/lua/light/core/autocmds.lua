@@ -151,15 +151,9 @@ function M.load_defaults()
 end
 
 local get_format_on_save_opts = function()
-  local defaults = require("light.config.defaults").format_on_save
-  -- accept a basic boolean `light.format_on_save=true`
-  if type(light.format_on_save) ~= "table" then
-    return defaults
-  end
-
   return {
-    pattern = light.format_on_save.pattern or defaults.pattern,
-    timeout = light.format_on_save.timeout or defaults.timeout,
+    pattern = "*",
+    timeout = 1000,
   }
 end
 
@@ -180,13 +174,7 @@ function M.disable_format_on_save()
 end
 
 function M.configure_format_on_save()
-  if type(light.format_on_save) == "table" and light.format_on_save.enabled then
     M.enable_format_on_save()
-  elseif light.format_on_save == true then
-    M.enable_format_on_save()
-  else
-    M.disable_format_on_save()
-  end
 end
 
 function M.toggle_format_on_save()
