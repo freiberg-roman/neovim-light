@@ -3,7 +3,8 @@ local M = {}
 local utils = require "light.utils"
 local light_lsp_utils = require "light.lsp.utils"
 
-local ftplugin_dir = light.lsp.templates_dir
+local lsp = require("light.lsp.config")
+local ftplugin_dir = lsp.config.templates_dir
 
 local join_paths = _G.join_paths
 
@@ -14,9 +15,9 @@ function M.remove_template_files()
   end
 end
 
-local skipped_filetypes = light.lsp.automatic_configuration.skipped_filetypes
-local skipped_servers = light.lsp.automatic_configuration.skipped_servers
-local ensure_installed_servers = light.lsp.installer.setup.ensure_installed
+local skipped_filetypes = lsp.config.automatic_configuration.skipped_filetypes
+local skipped_servers = lsp.config.automatic_configuration.skipped_servers
+local ensure_installed_servers = lsp.config.installer.setup.ensure_installed
 
 ---Check if we should skip generating an ftplugin file based on the server_name
 ---@param server_name string name of a valid language server
@@ -62,7 +63,7 @@ function M.generate_templates(servers_names)
   M.remove_template_files()
 
   -- create the directory if it didn't exist
-  if not utils.is_directory(light.lsp.templates_dir) then
+  if not utils.is_directory(lsp.config.templates_dir) then
     vim.fn.mkdir(ftplugin_dir, "p")
   end
 

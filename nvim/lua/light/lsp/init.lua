@@ -93,12 +93,13 @@ function M.setup()
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
   end
 
-  if not utils.is_directory(light.lsp.templates_dir) then
+  local lsp = require("light.lsp.config")
+  if not utils.is_directory(lsp.config.templates_dir) then
     require("light.lsp.templates").generate_templates()
   end
 
   pcall(function()
-    require("nlspsettings").setup(light.lsp.nlsp_settings.setup)
+    require("nlspsettings").setup(lsp.nlsp_settings.setup)
   end)
 
   require("light.lsp.null-ls").setup()

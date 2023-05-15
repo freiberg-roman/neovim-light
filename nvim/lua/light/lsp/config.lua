@@ -5,7 +5,8 @@ local skipped_filetypes = {"rst", "plaintext", "toml", "proto" }
 
 local join_paths = require("light.utils").join_paths
 
-return {
+local M = {}
+M.config = {
   templates_dir = join_paths(get_runtime_dir(), "site", "after", "ftplugin"),
   ---@deprecated use vim.diagnostic.config({ ... }) instead
   diagnostics = {},
@@ -79,3 +80,5 @@ return {
   ---@deprecated use light.lsp.installer.setup.automatic_installation instead
   automatic_servers_installation = nil,
 }
+
+return M
