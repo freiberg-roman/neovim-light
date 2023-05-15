@@ -1,7 +1,6 @@
 local M = {}
 
-function M.config()
-  light.builtin.autopairs = {
+local autopairs_config = {
     active = true,
     on_config_done = nil,
     ---@usage  modifies the function or method delimiter by filetypes
@@ -44,7 +43,6 @@ function M.config()
       highlight_grey = "Comment",
     },
   }
-end
 
 M.setup = function()
   local status_ok, autopairs = pcall(require, "nvim-autopairs")
@@ -53,22 +51,22 @@ M.setup = function()
   end
 
   autopairs.setup {
-    check_ts = light.builtin.autopairs.check_ts,
-    enable_check_bracket_line = light.builtin.autopairs.enable_check_bracket_line,
-    ts_config = light.builtin.autopairs.ts_config,
-    disable_filetype = light.builtin.autopairs.disable_filetype,
-    disable_in_macro = light.builtin.autopairs.disable_in_macro,
-    ignored_next_char = light.builtin.autopairs.ignored_next_char,
-    enable_moveright = light.builtin.autopairs.enable_moveright,
-    enable_afterquote = light.builtin.autopairs.enable_afterquote,
-    map_c_w = light.builtin.autopairs.map_c_w,
-    map_bs = light.builtin.autopairs.map_bs,
-    disable_in_visualblock = light.builtin.autopairs.disable_in_visualblock,
-    fast_wrap = light.builtin.autopairs.fast_wrap,
+    check_ts = autopairs_config.check_ts,
+    enable_check_bracket_line = autopairs_config.enable_check_bracket_line,
+    ts_config = autopairs_config.ts_config,
+    disable_filetype = autopairs_config.disable_filetype,
+    disable_in_macro = autopairs_config.disable_in_macro,
+    ignored_next_char = autopairs_config.ignored_next_char,
+    enable_moveright = autopairs_config.enable_moveright,
+    enable_afterquote = autopairs_config.enable_afterquote,
+    map_c_w = autopairs_config.map_c_w,
+    map_bs = autopairs_config.map_bs,
+    disable_in_visualblock = autopairs_config.disable_in_visualblock,
+    fast_wrap = autopairs_config.fast_wrap,
   }
 
-  if light.builtin.autopairs.on_config_done then
-    light.builtin.autopairs.on_config_done(autopairs)
+  if autopairs_config.on_config_done then
+    autopairs_config.on_config_done(autopairs)
   end
 
   pcall(function()
