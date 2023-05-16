@@ -118,14 +118,6 @@ local core_plugins = {
     cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeFocus", "NvimTreeFindFileToggle" },
     event = "User DirOpened",
   },
-  -- Lir
-  {
-    "tamago324/lir.nvim",
-    config = function()
-      require("light.core.lir").setup()
-    end,
-    event = "User DirOpened",
-  },
   -- Icons
   {
     "nvim-tree/nvim-web-devicons",
@@ -181,6 +173,7 @@ local core_plugins = {
       "ToggleTermSendVisualLines",
       "ToggleTermSendVisualSelection",
     },
+    lazy = false,
   },
 
   -- Theme

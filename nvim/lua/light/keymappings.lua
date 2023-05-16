@@ -44,6 +44,12 @@ local defaults = {
   },
 
   normal_mode = {
+    -- Plugin bindings
+    ["<Space>e"] = ":NvimTreeToggle<CR>",
+    ["<Space>ff"] = ":Telescope find_files<CR>",
+    ["<Space>fg"] = ":Telescope live_grep<CR>",
+    ["<Space>fb"] = ":Telescope buffers<CR>",
+    ["<Space>fh"] = ":Telescope help_tags<CR>",
     -- Resize with arrows
     ["<C-Up>"] = ":resize -2<CR>",
     ["<C-Down>"] = ":resize +2<CR>",
