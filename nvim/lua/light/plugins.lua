@@ -21,8 +21,8 @@ local core_plugins = {
     event = "User FileOpened",
     dependencies = "mason.nvim",
   },
-  { "tamago324/nlsp-settings.nvim", cmd = "LspSettings", lazy = true },
-  { "jose-elias-alvarez/null-ls.nvim", lazy = true },
+  { "tamago324/nlsp-settings.nvim", cmd = "LspSettings", lazy = false },
+  { "jose-elias-alvarez/null-ls.nvim", lazy = false },
   {
     "williamboman/mason.nvim",
     config = function()
@@ -59,7 +59,6 @@ local core_plugins = {
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "cmp-nvim-lsp",
-      "cmp_luasnip",
       "cmp-buffer",
       "cmp-path",
       "cmp-cmdline",
@@ -119,14 +118,6 @@ local core_plugins = {
     cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeFocus", "NvimTreeFindFileToggle" },
     event = "User DirOpened",
   },
-  -- Lir
-  {
-    "tamago324/lir.nvim",
-    config = function()
-      require("light.core.lir").setup()
-    end,
-    event = "User DirOpened",
-  },
   -- Icons
   {
     "nvim-tree/nvim-web-devicons",
@@ -182,6 +173,7 @@ local core_plugins = {
       "ToggleTermSendVisualLines",
       "ToggleTermSendVisualSelection",
     },
+    lazy = false,
   },
 
   -- Theme
