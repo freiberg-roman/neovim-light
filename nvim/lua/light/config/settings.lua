@@ -1,7 +1,7 @@
 local M = {}
 local light_icons = require "light.icons"
 
-M.load_default_options = function()
+M.load_options = function()
   local utils = require "light.utils"
   local join_paths = utils.join_paths
 
@@ -11,7 +11,7 @@ M.load_default_options = function()
     vim.fn.mkdir(undodir, "p")
   end
 
-  local default_options = {
+  local options = {
     backup = false, -- creates a backup file
     clipboard = "unnamedplus", -- allows neovim to access the system clipboard
     cmdheight = 1, -- more space in the neovim command line for displaying messages
@@ -61,7 +61,7 @@ M.load_default_options = function()
   vim.opt.shortmess:append "I" -- don't show the default intro message
   vim.opt.whichwrap:append "<,>,[,],h,l"
 
-  for k, v in pairs(default_options) do
+  for k, v in pairs(options) do
     vim.opt[k] = v
   end
 
@@ -101,10 +101,12 @@ M.load_default_options = function()
   }
 
   vim.diagnostic.config(default_diagnostic_config)
+  -- local formatter = require("light.lsp.null-ls.formatters")
+  -- formatter.setup { { name = "black" }}
 end
 
 M.load_defaults = function()
-  M.load_default_options()
+  M.load_options()
 end
 
 return M
