@@ -1,22 +1,23 @@
 local M = {}
 
+local icons = require("light.icons")
 local dap_config = {
   active = true,
   on_config_done = nil,
   breakpoint = {
-    text = light.icons.ui.Bug,
+    text = icons.ui.Bug,
     texthl = "DiagnosticSignError",
     linehl = "",
     numhl = "",
   },
   breakpoint_rejected = {
-    text = light.icons.ui.Bug,
+    text = icons.ui.Bug,
     texthl = "DiagnosticSignError",
     linehl = "",
     numhl = "",
   },
   stopped = {
-    text = light.icons.ui.BoldArrowRight,
+    text = icons.ui.BoldArrowRight,
     texthl = "DiagnosticSignWarn",
     linehl = "Visual",
     numhl = "DiagnosticSignWarn",
@@ -101,7 +102,7 @@ M.setup = function()
     return
   end
 
-  if light.use_icons then
+  if true then
     vim.fn.sign_define("DapBreakpoint", dap_config.breakpoint)
     vim.fn.sign_define("DapBreakpointRejected", dap_config.breakpoint_rejected)
     vim.fn.sign_define("DapStopped", dap_config.stopped)
