@@ -1,7 +1,7 @@
 local M = {}
 
 local join_paths = require("light.utils").join_paths
-local light_mason = {
+local mason_config = {
   ui = {
     check_outdated_packages_on_open = true,
     width = 0.8,
@@ -104,12 +104,12 @@ function M.setup()
     return
   end
 
-  add_to_path(light_mason.PATH == "append")
+  add_to_path(mason_config.PATH == "append")
 
-  mason.setup(light_mason)
+  mason.setup(mason_config)
 
-  if light_mason.on_config_done then
-    light_mason.on_config_done(mason)
+  if mason_config.on_config_done then
+    mason_config.on_config_done(mason)
   end
 end
 

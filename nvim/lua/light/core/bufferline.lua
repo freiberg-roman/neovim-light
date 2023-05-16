@@ -4,22 +4,20 @@ local function is_ft(b, ft)
   return vim.bo[b].filetype == ft
 end
 
+local icons = require("light.icons")
 local function diagnostics_indicator(num, _, diagnostics, _)
   local result = {}
   local symbols = {
-    error = light.icons.diagnostics.Error,
-    warning = light.icons.diagnostics.Warning,
-    info = light.icons.diagnostics.Information,
+    error = icons.diagnostics.Error,
+    warning = icons.diagnostics.Warning,
+    info = icons.diagnostics.Information,
   }
-  if not light.use_icons then
-    return "(" .. num .. ")"
-  end
   for name, count in pairs(diagnostics) do
     if symbols[name] and count > 0 then
       table.insert(result, symbols[name] .. " " .. count)
     end
   end
-  result = table.concat(result, " ")
+  local result = table.concat(result, " ")
   return #result > 0 and result or ""
 end
 
@@ -64,14 +62,14 @@ local bufferline_config = {
     left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
     indicator = {
-      icon = light.icons.ui.BoldLineLeft, -- this should be omitted if indicator style is not 'icon'
+      icon = icons.ui.BoldLineLeft, -- this should be omitted if indicator style is not 'icon'
       style = "icon", -- can also be 'underline'|'none',
     },
-    buffer_close_icon = light.icons.ui.Close,
-    modified_icon = light.icons.ui.Circle,
-    close_icon = light.icons.ui.BoldClose,
-    left_trunc_marker = light.icons.ui.ArrowCircleLeft,
-    right_trunc_marker = light.icons.ui.ArrowCircleRight,
+    buffer_close_icon = icons.ui.Close,
+    modified_icon = icons.ui.Circle,
+    close_icon = icons.ui.BoldClose,
+    left_trunc_marker = icons.ui.ArrowCircleLeft,
+    right_trunc_marker = icons.ui.ArrowCircleRight,
     --- name_formatter can be used to change the buffer's label in the bufferline.
     --- Please note some names can/will break the
     --- bufferline so use this at your discretion knowing that it has

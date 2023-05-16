@@ -1,11 +1,11 @@
 local M = {}
 
-local terminal_settings = {
+local terminal_config = {
   active = true,
   on_config_done = nil,
   -- size can be a number or function which is passed the current terminal
   size = 20,
-  open_mapping = [[<space>t]],
+  open_mapping = [[<C-t>]],
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_filetypes = {},
   shade_terminals = true,
@@ -75,11 +75,11 @@ local function get_dynamic_terminal_size(direction, size)
 end
 
 M.init = function()
-  for i, exec in pairs(terminal_settings.execs) do
-    local direction = exec[4] or terminal_settings.direction
+  for i, exec in pairs(terminal_config.execs) do
+    local direction = exec[4] or terminal_config.direction
 
     local opts = {
-      cmd = exec[1] or terminal_settings.shell or vim.o.shell,
+      cmd = exec[1] or terminal_config.shell or vim.o.shell,
       keymap = exec[2],
       label = exec[3],
       count = i + 100,
@@ -95,9 +95,9 @@ end
 
 M.setup = function()
   local terminal = require "toggleterm"
-  terminal.setup(terminal_settings)
-  if light.builtin.terminal.on_config_done then
-    light.builtin.terminal.on_config_done(terminal)
+  terminal.setup(terminal_config)
+  if terminal_config.on_config_done then
+    terminal_config.on_config_done(terminal)
   end
 end
 
@@ -112,28 +112,6 @@ M._exec_toggle = function(opts)
   local Terminal = require("toggleterm.terminal").Terminal
   local term = Terminal:new { cmd = opts.cmd, count = opts.count, direction = opts.direction }
   term:toggle(opts.size, opts.direction)
-end
-
----Toggles a log viewer according to log.viewer.layout_config
----@param logfile string the fullpath to the logfile
-M.toggle_log_view = function(logfile)
-  local log_viewer = light.log.viewer.cmd
-  if vim.fn.executable(log_viewer) ~= 1 then
-    log_viewer = "less +F"
-  end
-  log_viewer = log_viewer .. " " .. logfile
-  local term_opts = vim.tbl_deep_extend("force", light.builtin.terminal, {
-    cmd = log_viewer,
-    open_mapping = light.log.viewer.layout_config.open_mapping,
-    direction = light.log.viewer.layout_config.direction,
-    -- TODO: this might not be working as expected
-    size = light.log.viewer.layout_config.size,
-    float_opts = light.log.viewer.layout_config.float_opts,
-  })
-
-  local Terminal = require("toggleterm.terminal").Terminal
-  local log_view = Terminal:new(term_opts)
-  log_view:toggle()
 end
 
 M.lazygit_toggle = function()
