@@ -5,6 +5,7 @@ This repository contains a simple, Python-tailored configuration for Neovim, ins
 ## 🚧 Under Construction 🚧
 
 Please be aware that these settings are currently under active development and reconstruction. Use them with caution.
-Usage
+
+## Usage
 
 While this configuration is not recommended for use in its current state due to ongoing development, you're welcome to take inspiration from it or use parts of it in your own setup.
