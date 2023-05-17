@@ -50,6 +50,12 @@ local defaults = {
     ["<Space>fg"] = ":Telescope live_grep<CR>",
     ["<Space>fb"] = ":Telescope buffers<CR>",
     ["<Space>fh"] = ":Telescope help_tags<CR>",
+    ["<Space>dm"] = "<cmd>lua require('neotest').run.run()<cr>",
+    ["<Space>dM"] = "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
+    ["<Space>df"] = "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>",
+    ["<Space>dF"] = "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
+    ["<Space>dS"] = "<cmd>lua require('neotest').summary.toggle()<cr>",
+
     -- Resize with arrows
     ["<C-Up>"] = ":resize -2<CR>",
     ["<C-Down>"] = ":resize +2<CR>",

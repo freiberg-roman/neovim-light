@@ -182,6 +182,27 @@ local core_plugins = {
       vim.cmd("colorscheme " .. "catppuccin-latte")
     end,
   },
+
+  -- Python specific
+  { "mfussenegger/nvim-dap-python", lazy = false },
+  { "nvim-neotest/neotest-python", lazy = false },
+  { "nvim-neotest/neotest",
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-python")({
+            dap = {
+              justMyCode = false,
+              console = "integratedTerminal",
+            },
+            args = { "--log-level", "DEBUG", "--quiet" },
+            runner = "pytest",
+          })
+        }
+      })
+    end,
+    lazy = false,
+  },
 }
 
 return core_plugins

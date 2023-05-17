@@ -81,4 +81,33 @@ M.config = {
   automatic_servers_installation = nil,
 }
 
+-- Settings for python
+local light_icons = require("light.icons")
+local default_diagnostic_config = {
+  signs = {
+    active = true,
+    values = {
+      { name = "DiagnosticSignError", text = light_icons.diagnostics.Error },
+      { name = "DiagnosticSignWarn", text = light_icons.diagnostics.Warning },
+      { name = "DiagnosticSignHint", text = light_icons.diagnostics.Hint },
+      { name = "DiagnosticSignInfo", text = light_icons.diagnostics.Information },
+    },
+  },
+  virtual_text = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+  float = {
+    focusable = true,
+    style = "minimal",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
+}
+vim.diagnostic.config(default_diagnostic_config)
+local formatter = require("light.lsp.null-ls.formatters")
+formatter.setup { { name = "black" }}
+
 return M

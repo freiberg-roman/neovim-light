@@ -1,5 +1,3 @@
-local utils = require "light.utils"
-
 local M = {}
 
 -- defaults are user configs in this case -> will restructure later

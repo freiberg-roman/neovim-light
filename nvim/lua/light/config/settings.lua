@@ -1,5 +1,4 @@
 local M = {}
-local light_icons = require "light.icons"
 
 M.load_options = function()
   local utils = require "light.utils"
@@ -76,33 +75,6 @@ M.load_options = function()
     },
   }
 
-  local default_diagnostic_config = {
-    signs = {
-      active = true,
-      values = {
-        { name = "DiagnosticSignError", text = light_icons.diagnostics.Error },
-        { name = "DiagnosticSignWarn", text = light_icons.diagnostics.Warning },
-        { name = "DiagnosticSignHint", text = light_icons.diagnostics.Hint },
-        { name = "DiagnosticSignInfo", text = light_icons.diagnostics.Information },
-      },
-    },
-    virtual_text = true,
-    update_in_insert = false,
-    underline = true,
-    severity_sort = true,
-    float = {
-      focusable = true,
-      style = "minimal",
-      border = "rounded",
-      source = "always",
-      header = "",
-      prefix = "",
-    },
-  }
-
-  vim.diagnostic.config(default_diagnostic_config)
-  -- local formatter = require("light.lsp.null-ls.formatters")
-  -- formatter.setup { { name = "black" }}
 end
 
 M.load_defaults = function()
