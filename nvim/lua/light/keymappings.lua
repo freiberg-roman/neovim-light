@@ -171,4 +171,7 @@ function M.get_defaults()
   return defaults
 end
 
+vim.api.nvim_set_keymap('n', '<space>q', '<cmd>bd<CR>', {noremap = true, silent = true})
+
+
 return M
