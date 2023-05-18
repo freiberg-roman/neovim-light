@@ -140,7 +140,7 @@ local core_plugins = {
     config = function()
       require("light.core.dap").setup()
     end,
-    lazy = true,
+    lazy = false,
     dependencies = {
       "rcarriga/nvim-dap-ui",
     },
@@ -152,7 +152,7 @@ local core_plugins = {
     config = function()
       require("light.core.dap").setup_ui()
     end,
-    lazy = true,
+    lazy = false,
   },
 
   -- Terminal

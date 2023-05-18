@@ -116,11 +116,29 @@ M.setup = function()
 end
 
 M.setup_ui = function()
-  local status_ok, dap = pcall(require, "dap")
-  if not status_ok then
-    return
-  end
-  local dapui = require "dapui"
+  local dap = require("dap")
+  local dapui = require("dapui")
+  dap.adapters.python = {
+    type = "executable",
+    command = "python",
+    args = { "-m", "debugpy.adapter"}
+  }
+  dap.configurations.python = {
+    {
+      type = 'python';
+      request = 'launch';
+      name = "Launch file";
+      program = "${file}";
+      pythonPath = function()
+        local executable = os.getenv("CONDA_PREFIX")
+        if executable then
+          return executable .. "/bin/python"
+        else
+          print("No conda environment is active.")
+        end
+      end;
+    },
+  }
   dapui.setup(dap_config.ui.config)
 
   if dap_config.ui.auto_open then
@@ -152,8 +170,12 @@ M.setup_ui = function()
 
     msg = string.format("%s: %s", opts.title, msg)
   end
+  -- Keybindings
+  vim.api.nvim_set_keymap('n', '<space>dt', '<cmd>lua require("dap").toggle_breakpoint()<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<space>dd', '<cmd>lua require("dap").continue()<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<space>dc', '<cmd>lua require("dap").close(); require("dapui").close()<CR>', {noremap = true})
 
-  local dapui_ok, _ = xpcall(function()
+  local _, _ = xpcall(function()
     require("dapui.util").notify = notify_handler
   end, debug.traceback)
 end

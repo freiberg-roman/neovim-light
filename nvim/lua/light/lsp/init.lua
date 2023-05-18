@@ -85,10 +85,8 @@ function M.get_common_opts()
 end
 
 function M.setup()
-  local lsp_status_ok, _ = pcall(require, "lspconfig")
-  if not lsp_status_ok then
-    return
-  end
+  local lspconfig = require("lspconfig")
+  lspconfig.pyright.setup{}
 
   for _, sign in ipairs(vim.tbl_get(vim.diagnostic.config(), "signs", "values") or {}) do
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })

@@ -106,8 +106,5 @@ local default_diagnostic_config = {
     prefix = "",
   },
 }
-vim.diagnostic.config(default_diagnostic_config)
-local formatter = require("light.lsp.null-ls.formatters")
-formatter.setup { { name = "black" }}
 
 return M
