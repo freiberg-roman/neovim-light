@@ -45,11 +45,6 @@ local defaults = {
 
   normal_mode = {
     -- Plugin bindings
-    ["<Space>e"] = ":NvimTreeToggle<CR>",
-    ["<Space>ff"] = ":Telescope find_files<CR>",
-    ["<Space>fg"] = ":Telescope live_grep<CR>",
-    ["<Space>fb"] = ":Telescope buffers<CR>",
-    ["<Space>fh"] = ":Telescope help_tags<CR>",
     ["<Space>dm"] = "<cmd>lua require('neotest').run.run()<cr>",
     ["<Space>dM"] = "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
     ["<Space>df"] = "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>",
