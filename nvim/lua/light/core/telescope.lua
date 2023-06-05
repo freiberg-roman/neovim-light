@@ -138,6 +138,13 @@ function M.setup()
       require("telescope").load_extension "fzf"
     end)
   end
+  keybindings = {
+    ["<Space>ff"] = "<cmd>Telescope find_files<CR>",
+    ["<Space>fg"] = "<cmd>Telescope live_grep<CR>",
+    ["<Space>fb"] = "<cmd>Telescope buffers<CR>",
+    ["<Space>fh"] = "<cmd>Telescope help_tags<CR>",
+  }
+  require("light.keymappings").load_mode("n", keybindings)
 end
 
 return M

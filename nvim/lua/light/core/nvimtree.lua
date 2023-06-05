@@ -271,6 +271,11 @@ function M.setup()
   if nvimtree_config.on_config_done then
     nvimtree_config.on_config_done(nvim_tree)
   end
+
+  keybinds = {
+    ["<Space>e"] = ":NvimTreeToggle<CR>", 
+  }
+  require("light.keymappings").load_mode("n", keybinds)
 end
 
 return M

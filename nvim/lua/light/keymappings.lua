@@ -32,44 +32,17 @@ local mode_adapters = {
 
 local defaults = {
   insert_mode = {
-    -- Move current line / block with Alt-j/k ala vscode.
-    ["<A-j>"] = "<Esc>:m .+1<CR>==gi",
-    -- Move current line / block with Alt-j/k ala vscode.
-    ["<A-k>"] = "<Esc>:m .-2<CR>==gi",
-    -- navigation
-    ["<A-Up>"] = "<C-\\><C-N><C-w>k",
-    ["<A-Down>"] = "<C-\\><C-N><C-w>j",
-    ["<A-Left>"] = "<C-\\><C-N><C-w>h",
-    ["<A-Right>"] = "<C-\\><C-N><C-w>l",
   },
 
   normal_mode = {
     -- Plugin bindings
-    ["<Space>e"] = ":NvimTreeToggle<CR>",
-    ["<Space>ff"] = ":Telescope find_files<CR>",
-    ["<Space>fg"] = ":Telescope live_grep<CR>",
-    ["<Space>fb"] = ":Telescope buffers<CR>",
-    ["<Space>fh"] = ":Telescope help_tags<CR>",
     ["<Space>dm"] = "<cmd>lua require('neotest').run.run()<cr>",
     ["<Space>dM"] = "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
     ["<Space>df"] = "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>",
     ["<Space>dF"] = "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
     ["<Space>dS"] = "<cmd>lua require('neotest').summary.toggle()<cr>",
 
-    -- Resize with arrows
-    ["<C-Up>"] = ":resize -2<CR>",
-    ["<C-Down>"] = ":resize +2<CR>",
-    ["<C-Left>"] = ":vertical resize -2<CR>",
-    ["<C-Right>"] = ":vertical resize +2<CR>",
-
-    -- Move current line / block with Alt-j/k a la vscode.
-    ["<A-j>"] = ":m .+1<CR>==",
-    ["<A-k>"] = ":m .-2<CR>==",
-
-    -- QuickFix
-    ["]q"] = ":cnext<CR>",
-    ["[q"] = ":cprev<CR>",
-    ["<C-q>"] = ":call QuickFixToggle()<CR>",
+    ["<Space>q"] = {"<cmd>bd<CR>", {noremap = true, silent = true} }
   },
 
   term_mode = {
@@ -84,22 +57,12 @@ local defaults = {
     -- Better indenting
     ["<"] = "<gv",
     [">"] = ">gv",
-
-    -- ["p"] = '"0p',
-    -- ["P"] = '"0P',
   },
 
   visual_block_mode = {
-    -- Move current line / block with Alt-j/k ala vscode.
-    ["<A-j>"] = ":m '>+1<CR>gv-gv",
-    ["<A-k>"] = ":m '<-2<CR>gv-gv",
   },
 
   command_mode = {
-    -- navigate tab completion with <c-j> and <c-k>
-    -- runs conditionally
-    ["<C-j>"] = { 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true } },
-    ["<C-k>"] = { 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true } },
   },
 }
 
@@ -170,8 +133,5 @@ end
 function M.get_defaults()
   return defaults
 end
-
-vim.api.nvim_set_keymap('n', '<space>q', '<cmd>bd<CR>', {noremap = true, silent = true})
-
 
 return M

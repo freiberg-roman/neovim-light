@@ -46,7 +46,7 @@ local core_plugins = {
       require("light.core.telescope").setup()
     end,
     dependencies = { "telescope-fzf-native.nvim" },
-    lazy = true,
+    lazy = false,
     cmd = "Telescope",
   },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
@@ -117,6 +117,7 @@ local core_plugins = {
     end,
     cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeFocus", "NvimTreeFindFileToggle" },
     event = "User DirOpened",
+    lazy = false,
   },
   -- Icons
   {
