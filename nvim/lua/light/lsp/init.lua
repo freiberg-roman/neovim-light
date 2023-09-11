@@ -87,6 +87,16 @@ end
 function M.setup()
   local lspconfig = require("lspconfig")
   lspconfig.pyright.setup{}
+  lspconfig.rust_analyzer.setup{
+    filetypes = {"rust"},
+    settings = {
+      ['rust-analyzer'] = {
+        cargo = {
+          allFeatures = true,
+        }
+      }
+    }
+  }
 
   for _, sign in ipairs(vim.tbl_get(vim.diagnostic.config(), "signs", "values") or {}) do
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })

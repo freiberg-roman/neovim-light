@@ -107,4 +107,14 @@ local default_diagnostic_config = {
   },
 }
 
+keybindings = {
+    ["K"] = "<cmd>lua vim.lsp.buf.hover()<cr>",
+    ["gd"] = "<cmd>lua vim.lsp.buf.definition()<cr>",
+    ["gD"] = "<cmd>lua vim.lsp.buf.declaration()<cr>",
+    ["gr"] = "<cmd>lua vim.lsp.buf.references()<cr>",
+    ["gI"] = "<cmd>lua vim.lsp.buf.implementation()<cr>",
+    ["gs"] = "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+}
+require("light.keymappings").load_mode("n", keybindings)
+
 return M
