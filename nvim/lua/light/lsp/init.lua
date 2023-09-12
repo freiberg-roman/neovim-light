@@ -86,9 +86,10 @@ end
 
 function M.setup()
   local lspconfig = require("lspconfig")
-  lspconfig.pyright.setup{}
-  lspconfig.rust_analyzer.setup{
-    filetypes = {"rust"},
+  lspconfig.pyright.setup {}
+  lspconfig.lua_ls.setup {}
+  lspconfig.rust_analyzer.setup {
+    filetypes = { "rust" },
     settings = {
       ['rust-analyzer'] = {
         cargo = {
