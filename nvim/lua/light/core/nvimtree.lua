@@ -22,7 +22,6 @@ local nvimtree_config = {
       adaptive_size = false,
       centralize_selection = false,
       width = 30,
-      hide_root_folder = false,
       side = "left",
       preserve_window_proportions = false,
       number = false,
@@ -272,7 +271,7 @@ function M.setup()
   end
 
   keybinds = {
-    ["<Space>e"] = ":NvimTreeToggle<CR>", 
+    ["<Space>e"] = ":NvimTreeToggle<CR>",
   }
   require("light.keymappings").load_mode("n", keybinds)
 end

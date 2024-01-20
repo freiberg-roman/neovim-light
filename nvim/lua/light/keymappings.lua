@@ -21,15 +21,6 @@ local mode_adapters = {
   operator_pending_mode = "o",
 }
 
----@class Keys
----@field insert_mode table
----@field normal_mode table
----@field terminal_mode table
----@field visual_mode table
----@field visual_block_mode table
----@field command_mode table
----@field operator_pending_mode table
-
 local defaults = {
   insert_mode = {
   },
@@ -42,16 +33,9 @@ local defaults = {
     ["<Space>dF"] = "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
     ["<Space>dS"] = "<cmd>lua require('neotest').summary.toggle()<cr>",
 
-    ["<Space>q"] = {"<cmd>bd<CR>", {noremap = true, silent = true} }
+    ["<Space>q"] = { "<cmd>bd<CR>", { noremap = true, silent = true } }
   },
 
-  term_mode = {
-    -- Terminal window navigation
-    ["<C-h>"] = "<C-\\><C-N><C-w>h",
-    ["<C-j>"] = "<C-\\><C-N><C-w>j",
-    ["<C-k>"] = "<C-\\><C-N><C-w>k",
-    ["<C-l>"] = "<C-\\><C-N><C-w>l",
-  },
 
   visual_mode = {
     -- Better indenting

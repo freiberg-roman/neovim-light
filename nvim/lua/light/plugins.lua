@@ -1,8 +1,11 @@
 -- local require = require("light.utils.require").require
 local core_plugins = {
-  { "folke/lazy.nvim", tag = "stable" },
+  { "folke/lazy.nvim",                 tag = "stable" },
   {
     "neovim/nvim-lspconfig",
+    config = function()
+      require("light.lsp.config")
+    end,
     lazy = true,
     dependencies = { "mason-lspconfig.nvim", "nlsp-settings.nvim" },
   },
@@ -21,7 +24,7 @@ local core_plugins = {
     event = "User FileOpened",
     dependencies = "mason.nvim",
   },
-  { "tamago324/nlsp-settings.nvim", cmd = "LspSettings", lazy = false },
+  { "tamago324/nlsp-settings.nvim",    cmd = "LspSettings", lazy = false },
   { "jose-elias-alvarez/null-ls.nvim", lazy = false },
   {
     "williamboman/mason.nvim",
@@ -37,7 +40,7 @@ local core_plugins = {
     event = "User FileOpened",
     lazy = true,
   },
-  { "nvim-lua/plenary.nvim", cmd = { "PlenaryBustedFile", "PlenaryBustedDirectory" }, lazy = true },
+  { "nvim-lua/plenary.nvim",                    cmd = { "PlenaryBustedFile", "PlenaryBustedDirectory" }, lazy = true },
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
@@ -49,7 +52,7 @@ local core_plugins = {
     lazy = false,
     cmd = "Telescope",
   },
-  { "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make",                                          lazy = true },
   -- Install nvim-cmp, and buffer source as a dependency
   {
     "hrsh7th/nvim-cmp",
@@ -65,8 +68,8 @@ local core_plugins = {
     },
   },
   { "hrsh7th/cmp-nvim-lsp", lazy = true },
-  { "hrsh7th/cmp-buffer", lazy = true },
-  { "hrsh7th/cmp-path", lazy = true },
+  { "hrsh7th/cmp-buffer",   lazy = true },
+  { "hrsh7th/cmp-path",     lazy = true },
   {
     "hrsh7th/cmp-cmdline",
     lazy = true,
@@ -85,6 +88,7 @@ local core_plugins = {
       require("light.core.autopairs").setup()
     end,
     dependencies = { "nvim-treesitter/nvim-treesitter", "hrsh7th/nvim-cmp" },
+    lazy = false,
   },
 
   -- Treesitter
@@ -156,29 +160,9 @@ local core_plugins = {
     lazy = false,
   },
 
-  -- Terminal
   {
-    "akinsho/toggleterm.nvim",
-    branch = "main",
-    init = function()
-      require("light.core.terminal").init()
-    end,
-    config = function()
-      require("light.core.terminal").setup()
-    end,
-    cmd = {
-      "ToggleTerm",
-      "TermExec",
-      "ToggleTermToggleAll",
-      "ToggleTermSendCurrentLine",
-      "ToggleTermSendVisualLines",
-      "ToggleTermSendVisualSelection",
-    },
-    lazy = false,
-  },
-
-  -- Theme
-  { "catppuccin/nvim", name = "catppuccin",
+    "catppuccin/nvim",
+    name = "catppuccin",
     config = function()
       vim.cmd("colorscheme " .. "catppuccin-latte")
     end,
@@ -186,8 +170,9 @@ local core_plugins = {
 
   -- Python specific
   { "mfussenegger/nvim-dap-python", lazy = false },
-  { "nvim-neotest/neotest-python", lazy = false },
-  { "nvim-neotest/neotest",
+  { "nvim-neotest/neotest-python",  lazy = false },
+  {
+    "nvim-neotest/neotest",
     config = function()
       require("neotest").setup({
         adapters = {
@@ -204,6 +189,7 @@ local core_plugins = {
     end,
     lazy = false,
   },
+  { "github/copilot.vim", lazy = false },
 }
 
 return core_plugins
