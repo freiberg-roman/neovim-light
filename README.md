@@ -1,2 +1,2 @@
-# Neovim Python Configuration
+# Minimal NeoVim Configuration
 

@@ -1,29 +1,6 @@
 -- local require = require("light.utils.require").require
 local core_plugins = {
   { "folke/lazy.nvim",                 tag = "stable" },
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("light.lsp.config")
-    end,
-    lazy = true,
-    dependencies = { "mason-lspconfig.nvim", "nlsp-settings.nvim" },
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    cmd = { "LspInstall", "LspUninstall" },
-    config = function()
-      local lsp = require("light.lsp.config")
-      require("mason-lspconfig").setup(lsp.config.installer.setup)
-
-      -- automatic_installation is handled by lsp-manager
-      local settings = require "mason-lspconfig.settings"
-      settings.current.automatic_installation = false
-    end,
-    lazy = true,
-    event = "User FileOpened",
-    dependencies = "mason.nvim",
-  },
   { "tamago324/nlsp-settings.nvim",    cmd = "LspSettings", lazy = false },
   { "jose-elias-alvarez/null-ls.nvim", lazy = false },
   {
@@ -80,17 +57,6 @@ local core_plugins = {
     lazy = true,
   },
 
-  -- Autopairs
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = function()
-      require("light.core.autopairs").setup()
-    end,
-    dependencies = { "nvim-treesitter/nvim-treesitter", "hrsh7th/nvim-cmp" },
-    lazy = false,
-  },
-
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -129,26 +95,6 @@ local core_plugins = {
     enabled = true,
     lazy = true,
   },
-  -- Debugging
-  {
-    "mfussenegger/nvim-dap",
-    config = function()
-      require("light.core.dap").setup()
-    end,
-    lazy = false,
-    dependencies = {
-      "rcarriga/nvim-dap-ui",
-    },
-  },
-
-  -- Debugger user interface
-  {
-    "rcarriga/nvim-dap-ui",
-    config = function()
-      require("light.core.dap").setup_ui()
-    end,
-    lazy = false,
-  },
 
   {
     "catppuccin/nvim",
@@ -156,28 +102,6 @@ local core_plugins = {
     config = function()
       vim.cmd("colorscheme " .. "catppuccin-latte")
     end,
-  },
-
-  -- Python specific
-  { "mfussenegger/nvim-dap-python", lazy = false },
-  { "nvim-neotest/neotest-python",  lazy = false },
-  {
-    "nvim-neotest/neotest",
-    config = function()
-      require("neotest").setup({
-        adapters = {
-          require("neotest-python")({
-            dap = {
-              justMyCode = false,
-              console = "integratedTerminal",
-            },
-            args = { "--log-level", "DEBUG", "--quiet" },
-            runner = "pytest",
-          })
-        }
-      })
-    end,
-    lazy = false,
   },
   { "github/copilot.vim", lazy = false },
 }
