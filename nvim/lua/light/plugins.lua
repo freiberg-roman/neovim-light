@@ -129,16 +129,6 @@ local core_plugins = {
     enabled = true,
     lazy = true,
   },
-
-  {
-    "akinsho/bufferline.nvim",
-    config = function()
-      require("light.core.bufferline").setup()
-    end,
-    branch = "main",
-    event = "User FileOpened",
-  },
-
   -- Debugging
   {
     "mfussenegger/nvim-dap",
