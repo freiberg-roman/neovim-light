@@ -30,32 +30,11 @@ local core_plugins = {
     cmd = "Telescope",
   },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make",                                          lazy = true },
-  -- Install nvim-cmp, and buffer source as a dependency
-  {
-    "hrsh7th/nvim-cmp",
-    config = function()
-      require("light.core.cmp").setup()
-    end,
-    event = { "InsertEnter", "CmdlineEnter" },
-    dependencies = {
-      "cmp-nvim-lsp",
-      "cmp-buffer",
-      "cmp-path",
-      "cmp-cmdline",
-    },
-  },
-  { "hrsh7th/cmp-nvim-lsp", lazy = true },
-  { "hrsh7th/cmp-buffer",   lazy = true },
-  { "hrsh7th/cmp-path",     lazy = true },
-  {
-    "hrsh7th/cmp-cmdline",
-    lazy = true,
-    enabled = true,
-  },
-  {
-    "folke/neodev.nvim",
-    lazy = true,
-  },
+  --- {
+  ---   "folke/neodev.nvim",
+  ---   opts = {},
+  ---   lazy = false,
+  --- },
 
   -- Treesitter
   {
@@ -100,7 +79,7 @@ local core_plugins = {
     "catppuccin/nvim",
     name = "catppuccin",
     config = function()
-      vim.cmd("colorscheme " .. "catppuccin-latte")
+      vim.cmd("colorscheme " .. "catppuccin-latte") --- try also mocha
     end,
   },
   { "github/copilot.vim", lazy = false },
