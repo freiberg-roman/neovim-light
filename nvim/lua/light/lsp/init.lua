@@ -1,6 +1,5 @@
 local M = {}
 local utils = require "light.utils"
-local autocmds = require "light.core.autocmds"
 
 local lsp = require("light.lsp.config")
 local function add_lsp_buffer_options(bufnr)
@@ -41,15 +40,6 @@ function M.common_capabilities()
   }
 
   return capabilities
-end
-
-function M.common_on_exit(_, _)
-  if lsp.config.document_highlight then
-    autocmds.clear_augroup "lsp_document_highlight"
-  end
-  if lsp.config.code_lens_refresh then
-    autocmds.clear_augroup "lsp_code_lens_refresh"
-  end
 end
 
 function M.common_on_init(client, bufnr)
@@ -114,7 +104,6 @@ function M.setup()
 
   require("light.lsp.null-ls").setup()
 
-  autocmds.configure_format_on_save()
 
   local function set_handler_opts_if_not_set(name, handler, opts)
     if debug.getinfo(vim.lsp.handlers[name], "S").source:match(vim.env.VIMRUNTIME) then
